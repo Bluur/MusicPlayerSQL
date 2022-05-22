@@ -1,11 +1,13 @@
 
 package Clases;
 
+import java.util.Objects;
+
 /**
  * Clase que tiene los atributos de nuestras canciones que vamos a utilizar.
  * @author Migue
  */
-public class Cancion {
+public class Cancion implements Comparable {
     
     private String nombre;
     private String ruta;
@@ -69,4 +71,48 @@ public class Cancion {
         
         this.duracion = duracion;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.nombre);
+        hash = 41 * hash + Objects.hashCode(this.ruta);
+        hash = 41 * hash + this.duracion;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cancion other = (Cancion) obj;
+        if (this.duracion != other.duracion) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        return Objects.equals(this.ruta, other.ruta);
+    }
+
+    
+
+    @Override
+    public int compareTo(Object o) {
+        return this.duracion - ((Cancion)o).getDuracion();
+    }
+
+    @Override
+    public String toString() {
+        return "Cancion{" + "nombre=" + nombre + ", ruta=" + ruta + ", duracion=" + duracion + '}';
+    }
+    
+    
 }
